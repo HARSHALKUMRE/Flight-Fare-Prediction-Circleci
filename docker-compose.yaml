@@ -2,8 +2,8 @@ version: '3'
 services:
   applications:
     build: .
-    image: ${IMAGE_NAME}
-    container_name: flight-prediction
+    #image: ${IMAGE_NAME}
+    container_name: flight-fare-prediction
     ports:
       - "8080:8080"
     environment:
@@ -12,3 +12,7 @@ services:
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
       - BUCKET_NAME=${BUCKET_NAME}
    
+
+
+
+    

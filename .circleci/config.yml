@@ -21,8 +21,8 @@ jobs:
       - image: google/cloud-sdk
     resource_class: medium
     environment:
-      REPOSITORY: finance-complaint
-      IMAGE_NAME: finance-complaint
+      REPOSITORY: flight-fare-prediction
+      IMAGE_NAME: flight-fare-prediction
       IMAGE_TAG: latest
     steps:
       - checkout
@@ -51,15 +51,15 @@ jobs:
 
   continuous-deployment:
     machine: true
-    resource_class: machine-learning-01/self-hosted-1
+    resource_class: HARSHALKUMRE/self-hosted
     environment:
-      REPOSITORY: finance-complaint
-      GAR_IMAGE_NAME: finance-complaint
+      REPOSITORY: flight-fare-prediction
+      GAR_IMAGE_NAME: flight-fare-prediction
       IMAGE_TAG: latest
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_DEFAULT_REGION: "ap-south-1"
-      MONGO_DB_URL: ${MONGO_DB_URL}
+      BUCKET_NAME: ${BUCKET_NAME}
     steps:
       - checkout
 
@@ -80,7 +80,7 @@ jobs:
         
       - run: 
           name: Set env variable
-          command: echo 'export IMAGE_NAME="${GOOGLE_COMPUTE_ZONE}-docker.pkg.dev/${GOOGLE_PROJECT_ID}/$REPOSITORY/finance-complaint:$IMAGE_TAG"' >> "$BASH_ENV"
+          command: echo 'export IMAGE_NAME="${GOOGLE_COMPUTE_ZONE}-docker.pkg.dev/${GOOGLE_PROJECT_ID}/$REPOSITORY/${BUCKET_NAME}/flight-fare-prediction:$IMAGE_TAG"' >> "$BASH_ENV"
 
       - run:
           name: start the containers
