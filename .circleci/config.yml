@@ -51,7 +51,7 @@ jobs:
 
   continuous-deployment:
     machine: true
-    resource_class: HARSHALKUMRE/self-hosted
+    resource_class: harshalkumre/self-hosted
     environment:
       REPOSITORY: flight-fare-prediction
       GAR_IMAGE_NAME: flight-fare-prediction
