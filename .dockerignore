@@ -1,2 +1,8 @@
 env
 venv
+LICENSE
+README.md 
+notebook
+airflow/airflow.cfg
+.*
+*.egg-info/*
