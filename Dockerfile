@@ -12,4 +12,4 @@ RUN airflow users create -e harshalkumre1998@gmail.com -f harshal -l kumre -p ad
 RUN chmod 777 start.sh
 RUN apt update -y && apt install awscli -y
 ENTRYPOINT [ "/bin/sh" ]
-CMD [ "start.sh", "app.py" ]
+CMD [ "start.sh" ]
