@@ -58,7 +58,7 @@ jobs:
       IMAGE_TAG: latest
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      AWS_DEFAULT_REGION: "ap-south-1"
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
       BUCKET_NAME: ${BUCKET_NAME}
     steps:
       - checkout
@@ -80,11 +80,19 @@ jobs:
         
       - run: 
           name: Set env variable
-          command: echo 'export IMAGE_NAME="${GOOGLE_COMPUTE_ZONE}-docker.pkg.dev/${GOOGLE_PROJECT_ID}/$REPOSITORY/${BUCKET_NAME}/flight-fare-prediction:$IMAGE_TAG"' >> "$BASH_ENV"
+          command: echo 'export IMAGE_NAME="${GOOGLE_COMPUTE_ZONE}-docker.pkg.dev/${GOOGLE_PROJECT_ID}/$REPOSITORY/flight-fare-prediction:$IMAGE_TAG AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" BUCKET_NAME=${BUCKET_NAME}"' >> "$BASH_ENV"
 
       - run:
           name: start the containers
           command: docker-compose up -d
+
+      - run:
+          name: stop the containers
+          command: docker-compose down -d
+
+      - run:
+          name: Docker System Prune to Remove Old Images
+          command: sudo docker system prune -f
   
 workflows:
   CICD:
